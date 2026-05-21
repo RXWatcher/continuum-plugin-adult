@@ -1,0 +1,95 @@
+{
+  "plugin_id": "continuum.adult",
+  "version": "1.0.0",
+  "checksum": "__CHECKSUM__",
+  "continuum_api_version": "v1",
+  "supported_platforms": [
+    {
+      "os": "darwin",
+      "arch": "arm64"
+    },
+    {
+      "os": "linux",
+      "arch": "amd64"
+    },
+    {
+      "os": "linux",
+      "arch": "arm64"
+    }
+  ],
+  "capabilities": [
+    {
+      "type": "metadata_provider.v1",
+      "id": "adult",
+      "display_name": "Adult",
+      "description": "Adult content metadata aggregator (ThePornDB, Stash, and other configured sources). Maps studios/sites to TV series and individual scenes to episodes; full-length releases map to movies.",
+      "metadata": {
+        "default_priority": {
+          "movie": 5,
+          "series": 5,
+          "season": 5,
+          "episode": 5
+        }
+      }
+    }
+  ],
+  "global_config_schema": [
+    {
+      "key": "tpdb",
+      "title": "ThePornDB (TPDB)",
+      "description": "Primary metadata source. Get an API key at https://theporndb.net (account > API).",
+      "json_schema": "{\"type\":\"object\",\"properties\":{\"enabled\":{\"type\":\"boolean\"},\"api_key\":{\"type\":\"string\"},\"priority\":{\"type\":\"integer\"}}}",
+      "admin_form": {
+        "fields": [
+          {
+            "key": "enabled",
+            "label": "Enabled",
+            "control": "ADMIN_FORM_CONTROL_SWITCH"
+          },
+          {
+            "key": "api_key",
+            "label": "API key",
+            "control": "ADMIN_FORM_CONTROL_PASSWORD",
+            "secret": true
+          },
+          {
+            "key": "priority",
+            "label": "Priority (lower = preferred)",
+            "control": "ADMIN_FORM_CONTROL_NUMBER"
+          }
+        ]
+      }
+    },
+    {
+      "key": "stash",
+      "title": "Stash",
+      "description": "Self-hosted Stash instance. Provide its GraphQL endpoint and API key (Settings > Security in Stash).",
+      "json_schema": "{\"type\":\"object\",\"properties\":{\"enabled\":{\"type\":\"boolean\"},\"url\":{\"type\":\"string\"},\"api_key\":{\"type\":\"string\"},\"priority\":{\"type\":\"integer\"}}}",
+      "admin_form": {
+        "fields": [
+          {
+            "key": "enabled",
+            "label": "Enabled",
+            "control": "ADMIN_FORM_CONTROL_SWITCH"
+          },
+          {
+            "key": "url",
+            "label": "GraphQL endpoint (e.g. http://stash.local:9999/graphql)",
+            "control": "ADMIN_FORM_CONTROL_TEXT"
+          },
+          {
+            "key": "api_key",
+            "label": "API key",
+            "control": "ADMIN_FORM_CONTROL_PASSWORD",
+            "secret": true
+          },
+          {
+            "key": "priority",
+            "label": "Priority (lower = preferred)",
+            "control": "ADMIN_FORM_CONTROL_NUMBER"
+          }
+        ]
+      }
+    }
+  ]
+}
